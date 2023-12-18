@@ -9,4 +9,5 @@ router.post('/insertInterviewQuestion',interviewQuestionController.createIntervi
 router.get('/getInterviewQuestions', interviewQuestionController.getInterviewQuestions);
 
 
+
 module.exports = router;
