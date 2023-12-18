@@ -22,7 +22,7 @@ module.exports = {
         [ title, author, content, category, subcategory, tags, status, created_on, uid]
       ) ; 
       return res.status(200).json({
-        status: '200',
+        ResponeCode: '200',
         message: 'Success',
         Data: articles.rows[0]
       });
@@ -34,24 +34,47 @@ module.exports = {
   },
 
   // get articles
-  getArticles: async (req, res) => {
+  // getArticles: async (req, res) => {
+  //   try {
+  //     const articles = await Pool.query('SELECT * FROM articles');
+  //     if (articles.rows.length === 0) {
+  //       return res.status(404).json({ message: 'Article not found' });
+  //     }
+  //    // res.json(articles.rows);
+  //    return res.status(200).json({
+  //     status: '200',
+  //     message: 'Success',
+  //     Data: articles.rows
+  //   });
+  //   } catch (err) {
+  //     console.log(err);
+  //     res.status(500).send('Server Error');
+  //   }
+  // },
+
+   getArticles : async (req, res) => {
     try {
-      const articles = await Pool.query('SELECT * FROM articles');
+      const page = parseInt(req.params.page) || 1;
+      const limit = parseInt(req.params.limit) || 5;
+      const offset = (page - 1) * limit;
+  
+      const articles = await Pool.query('SELECT FROM articles  ORDER BY id OFFSET $1 LIMIT $2', [offset, limit]);
+  
       if (articles.rows.length === 0) {
         return res.status(404).json({ message: 'Article not found' });
       }
-     // res.json(articles.rows);
-     return res.status(200).json({
-      status: '200',
-      message: 'Success',
-      Data: articles.rows
-    });
+  
+      return res.status(200).json({
+        status: '200',
+        message: 'Success',
+        data: articles.rows,
+      });
     } catch (err) {
-      console.log(err);
+      console.error(err);
       res.status(500).send('Server Error');
     }
   },
-
+  
   //get article by id
   getArticleById: async (req, res) => {
     try {
