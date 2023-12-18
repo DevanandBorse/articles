@@ -43,7 +43,8 @@ module.exports = {
   searchCategoryById: async (req, res) => {
     try {
       const { id } = req.params;
-      const category = await Pool.query("SELECT * FROM  category WHERE id=$1", [
+      const category = await Pool.query("SELECT * FROM  category WHERE id=$1", 
+      [
         id,
       ]);
 
@@ -77,7 +78,8 @@ module.exports = {
       return res.status(200).json({
         status: "200",
         message: "success",
-        Data: category.rows[0],
+        // Data: category.rows[0],
+        data:({ message:'Category Updated successfully'})
       });
     } catch (error) {
       console.log(error);
@@ -96,7 +98,8 @@ module.exports = {
           return res.status(200).json({
             status: "200",
             message: "success",
-           
+            data:({ message:'Category deleted successfully'})
+
           });
     }catch(error){
         console.log(error);

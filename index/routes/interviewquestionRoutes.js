@@ -5,8 +5,8 @@ const router = express.Router()
 const  interviewQuestionController=require('../controllers/interviewquestionController');
 
 
-router.post('/apis/insertInterviewQuestion',interviewQuestionController.createInterviewQuestion);
-router.get('apis/getInterviewQuestions', interviewQuestionController.getInterviewQuestions);
+router.post('/insertInterviewQuestion',interviewQuestionController.createInterviewQuestion);
+router.get('/getInterviewQuestions', interviewQuestionController.getInterviewQuestions);
 
 
 module.exports = router;
