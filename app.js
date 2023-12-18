@@ -19,12 +19,9 @@ app.use(bodyParser.json());
 
 app.use('/apis', articleRoutes);
 app.use('/apis', interviewQuestionRoutes);
-<<<<<<< HEAD
 app.use('/apis', iqMaincategoryRoutes);
-=======
 app.use('/apis',categoryRoutes);
 app.use('/apis',iqsubcategoryController);
->>>>>>> 93d7f45ff08631a1cbed9633bca38db0b65143b3
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
