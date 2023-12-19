@@ -1,6 +1,6 @@
-//const InterviewQuestion = require('../models/interviewQuestion');
-// const InterviewQuestion=require("../models/interviewquestion");
 const Pool = require("../database");
+
+
 module.exports = {
   createInterviewQuestion: async (req, res) => {
     try {
@@ -70,7 +70,7 @@ module.exports = {
     try {
       const { id } = req.params;
       const interview_questions = await Pool.query(
-        "SELECT title,author,content,category,subcategory,tags,status,created_on,uid FROM interview_questions WHERE id=$1",
+        "SELECT id,title,author,content,category,subcategory,tags,status,created_on,uid FROM interview_questions WHERE id=$1",
         [id]
       );
 
@@ -129,8 +129,9 @@ module.exports = {
         [id]
       );
 
-      if (!interview_questions) {
-        return res.status(404).json({ error: "Interview question not found" });
+     
+      if (interview_questions.rows.length === 0) {
+        return res.status(404).json({ message: "Interview question not found" });
       }
       res.json({ 
         response_code: 200,

@@ -48,7 +48,7 @@ module.exports = {
     try{
         const { id } = req.params;
         const maincategory = await Pool.query(
-            "SELECT category_name FROM interview_questions_main_category WHERE id=$", [id]
+            "SELECT category_name FROM interview_questions_main_category WHERE id=$1", [id]
         );
 
         if(maincategory.rows.length === 0){

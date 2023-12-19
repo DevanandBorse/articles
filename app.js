@@ -1,10 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const articleRoutes = require('./index/routes/articleRoutes');
-// const interviewQuestionRoutes = require('./routes/interviewQuestionRoutes');
-const interviewQuestionRoutes = require("./index/routes/interviewquestionRoutes");
 const iqMaincategoryRoutes = require("./index/routes/iqMaincategoryRoutes");
-const interviewQuestionRoutes=require("./index/routes/interviewquestionRoutes");
+const interviewquestionRoutes=require("./index/routes/interviewquestionRoutes");
 const categoryRoutes=require('./index/routes/categoryRoutes');
 const iqsubcategoryController=require('./index/routes/iqsubcategoryRoutes');
 
@@ -18,7 +16,7 @@ const pool = require('./index/database')
 app.use(bodyParser.json());
 
 app.use('/apis', articleRoutes);
-app.use('/apis', interviewQuestionRoutes);
+app.use('/apis', interviewquestionRoutes);
 app.use('/apis', iqMaincategoryRoutes);
 app.use('/apis',categoryRoutes);
 app.use('/apis',iqsubcategoryController);

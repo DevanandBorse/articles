@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router()
-// const interviewQuestionController = require('../controllers/interviewQuestionController');
 const  maincategoryController=require('../controllers/iqMaincategoryController');
 
 router.post("/maincategory",maincategoryController.createmaincategory);

@@ -1,4 +1,3 @@
-const pool = require("../database");
 const Pool = require("../database");
 
 module.exports = {
@@ -12,8 +11,8 @@ module.exports = {
       );
 
       return res.status(200).json({
-        status: "200",
-        message: "success",
+        response_code: 200,
+        response_message: "Success",
         Data: category.rows[0],
       });
     } catch (error) {
@@ -24,14 +23,14 @@ module.exports = {
 
   getCategory: async (req, res) => {
     try {
-      const category = await Pool.query("SELECT * FROM category");
+      const category = await Pool.query("SELECT id,category_name,parent_category,sub_category FROM category");
 
       if (category.rows.length === 0) {
         return res.status(404).json({ message: "category not found" });
       }
       return res.status(200).json({
-        status: "200",
-        message: "success",
+        response_code: 200,
+        response_message: "Success",
         Data: category.rows,
       });
     } catch (error) {
@@ -43,18 +42,15 @@ module.exports = {
   searchCategoryById: async (req, res) => {
     try {
       const { id } = req.params;
-      const category = await Pool.query("SELECT * FROM  category WHERE id=$1", 
-      [
-        id,
-      ]);
+      const category = await Pool.query("SELECT id,category_name,parent_category,sub_category  FROM  category WHERE id=$1", [id]);
 
       if (category.rows.length === 0) {
         return res.status(404).json({ message: "Data not found" });
       }
 
       return res.status(200).json({
-        status: "200",
-        message: "success",
+        response_code: 200,
+        response_message: "Success",
         Data: category.rows[0],
       });
     } catch (error) {
@@ -76,8 +72,8 @@ module.exports = {
         return res.status(404).json({ message: "category not found" });
       }
       return res.status(200).json({
-        status: "200",
-        message: "success",
+        response_code: 200,
+        response_message: "Success",
         // Data: category.rows[0],
         data:({ message:'Category Updated successfully'})
       });
@@ -96,8 +92,8 @@ module.exports = {
             return res.status(404).json({ message: "category not found" });
           }
           return res.status(200).json({
-            status: "200",
-            message: "success",
+            response_code: 200,
+            response_message: "Success",
             data:({ message:'Category deleted successfully'})
 
           });
