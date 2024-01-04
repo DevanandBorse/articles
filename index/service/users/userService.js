@@ -65,7 +65,7 @@ const userService={
   //delete user by id
    deleteUserById : async (id) => {
     try{
-    const users = await pool.query('DELETE FROM users WHERE id=$1 RETURNING *', [id]);
+    const users = await pool.query('UPDATE users SET status=0 WHERE id=$1 AND status=1 RETURNING *', [id]);
     return users.rows;
   }catch(error){
     console.error(error.message);

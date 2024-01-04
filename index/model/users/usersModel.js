@@ -37,34 +37,42 @@ const userModel={
 
 //get all users
 getUsers : async () => {
+  try {
     const users = await userService.getAll();
-    if (users.length === 0) {
-      throw new Error('Users not found');
-    }
     return users;
+  } catch (error) {
+    console.error(error.message);
+  }
+    
   },
 
 //get user by id
  getUsersById:async(id)=>{
+  try {
     const users=await userService.getUsersById(id);
-    if(users.length===0){
-        throw new Error('User Id not found'); 
-    }
     return users;
+  } catch (error) {
+    console.error(error.message);
+  }
+    
 },
  updateUserById : async (id, userData) => {
+  try {
     const updatedUser = await userService.updateUserById(id, userData);
-    if (!updatedUser) {
-      throw new Error('User Id not found');
-    }
     return updatedUser;
+  } catch (error) {
+    console.error(error.message);
+  }
   },
+
    deleteUserById : async (id) => {
-    const deletedUser = await userService.deleteUserById(id);
-    if (deletedUser.length === 0) {
-      throw new Error('User Id not found');
-    }
+    try {
+      const deletedUser = await userService.deleteUserById(id);
     return deletedUser;
+    } catch (error) {
+    console.error(error.message);
+    }
+    
   },
 };
 

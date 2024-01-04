@@ -25,7 +25,9 @@ const userController={
       const user = await usersModel.getUsers();
       if(user.length===0){
         res.status(404).json({
-          response_message:"User not found"
+          response_code:404,
+          response_message:'Success',
+         data:{message:"User not found"}
         });
       }
       res.status(200).json({
@@ -68,9 +70,13 @@ const userController={
     try {
       const  { id } = req.params;
       const user=await usersModel.updateUserById(id,req.body);
-     // const updatedUser = await usersModel.updateUserById(id, updatedUser);
+    // const updatedUser = await usersModel.updateUserById(id, updatedUser);
   if(user.length===0){
-    return res.status(404).json({response_message:"Id not found"})
+    return res.status(404).json({
+     response_code:404,
+     response_message:'Success' ,
+     data: { message: 'User Id not found' },
+    })
   }
       res.status(200).json({
         response_code: 200,
@@ -89,7 +95,11 @@ const userController={
       const users=await usersModel.deleteUserById(id);
       //const deletedUser = await usersModel.deleteUserById(id,deletedUser);
       if(users.length===0){
-        return res.status(404).json({response_message:"Id not found"})
+        return res.status(404).json({
+               response_code:404,
+               response_message:'Success' ,
+               data: { message: 'User Id not found' },
+    })
       }
       return res.status(200).json({
         response_code: 200,
