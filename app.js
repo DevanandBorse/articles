@@ -1,25 +1,23 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const articleRoutes = require('./index/routes/articleRoutes');
-const iqMaincategoryRoutes = require("./index/routes/iqMaincategoryRoutes");
-const interviewquestionRoutes=require("./index/routes/interviewquestionRoutes");
-const categoryRoutes=require('./index/routes/categoryRoutes');
-const iqsubcategoryController=require('./index/routes/iqsubcategoryRoutes');
-
+const articleCategoriesRoutes=require('./index/routes/articlcategories/articleCategoriesRoutes');
+const createArticleRoutes=require('./index/routes/articles/createArticleRoutes');
+require('dotenv').config();
+const cors = require('cors');
 
 const app = express();
+
+
+
+
 const PORT = process.env.PORT || 3000;
 const pool = require('./index/database')
 
-//pool();
 
 app.use(bodyParser.json());
-
-app.use('/apis', articleRoutes);
-app.use('/apis', interviewquestionRoutes);
-app.use('/apis', iqMaincategoryRoutes);
-app.use('/apis',categoryRoutes);
-app.use('/apis',iqsubcategoryController);
+app.use(cors());
+app.use('/apis',articleCategoriesRoutes);
+app.use('/apis',createArticleRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
