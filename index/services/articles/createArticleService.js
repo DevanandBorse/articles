@@ -1,6 +1,6 @@
 // articleModel.js
 
-const Pool = require("../../database"); // Assuming you have a separate file for database configuration
+const Pool = require("../../../database"); // Assuming you have a separate file for database configuration
 
 const ArticleServices = {
   createArticle: async (articleData) => {
