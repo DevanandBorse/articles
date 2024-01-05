@@ -1,6 +1,7 @@
 //const userModel = require('../models/userModel');
 //const loginModels=require("../../models/login/loginModels");
-const LoginService = require('../../service/login/loginService');
+//const LoginService = require('../../service/login/loginService');
+const LoginService=require("../../../index/services/login/loginService");
 const jwt = require('jsonwebtoken');
 
 const generateAuthToken = (payload) => {

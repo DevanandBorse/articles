@@ -2,8 +2,8 @@
 //const { Error } = require("sequelize");
 //const userModel=require("../../models/users/userModels");
 //const usersModel=require("../../model/users/usersModel");
-const userService=require("../../service/users/userService");
-
+//const userService=require("../../service/users/userService");
+const userService=require("../../../index/services/users/userService");
 const userModel={
 //Insert user
   createUser: async (reqBody) => {
