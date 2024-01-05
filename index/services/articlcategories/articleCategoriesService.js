@@ -1,5 +1,5 @@
 // categoryModel.js
-const Pool = require('../../database');
+const Pool = require('../../../database');
 
 const ArticleCategoriesService={
 

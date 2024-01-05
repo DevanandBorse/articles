@@ -1,11 +1,31 @@
 const express = require('express');
-<<<<<<< HEAD
 const app = express();
+const port = process.env.PORT || 3000;
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.raw());
-// Other configurations and middleware setups...
+
+const cors = require('cors');
+app.use(cors());
+
+const dotenv = require('dotenv');
+
+const userRoutes = require('./index/routes/users/userRoutes');
+const loginRoutes=require("./index/routes/login/loginRoutes");
+dotenv.config();
+
+// Initialize database connection
+// const db = require('./database');
+// db.connect();
+
+// Routes
+app.use('/apis',userRoutes);
+app.use('/apis',loginRoutes);
+app.use("/apis",userRoutes);
+app.use('/apis',userRoutes);
+app.use('/apis',userRoutes);
+app.use('/apis',userRoutes);
 
 // Importing interview question routes
 const interviewQuestionRoute = require('./index/routes/interviewquestions/interviewQuestionRoute');
@@ -19,34 +39,12 @@ app.use('/apis', iqMainCategoryRoute);
 const iqSubCategoryRoute = require('./index/routes/interviewquestions/iqSubCategoryRoute');
 app.use('/apis', iqSubCategoryRoute);
 
-// Start the server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
-=======
-const bodyParser = require('body-parser');
+
 const articleCategoriesRoutes=require('./index/routes/articlcategories/articleCategoriesRoutes');
 const createArticleRoutes=require('./index/routes/articles/createArticleRoutes');
-require('dotenv').config();
-const cors = require('cors');
 
-const app = express();
-
-
-
-
-const PORT = process.env.PORT || 3000;
-const pool = require('./index/database')
-
-
-app.use(bodyParser.json());
-app.use(cors());
 app.use('/apis',articleCategoriesRoutes);
 app.use('/apis',createArticleRoutes);
-
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
-
->>>>>>> d769b579ab3d83e5e16e934aaca49e940e3993af
