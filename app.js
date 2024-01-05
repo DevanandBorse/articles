@@ -39,12 +39,15 @@ app.use('/apis', iqMainCategoryRoute);
 const iqSubCategoryRoute = require('./index/routes/interviewquestions/iqSubCategoryRoute');
 app.use('/apis', iqSubCategoryRoute);
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
 
 const articleCategoriesRoutes=require('./index/routes/articlcategories/articleCategoriesRoutes');
 const createArticleRoutes=require('./index/routes/articles/createArticleRoutes');
 
 app.use('/apis',articleCategoriesRoutes);
 app.use('/apis',createArticleRoutes);
+
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
+
