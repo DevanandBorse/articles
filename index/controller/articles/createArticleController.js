@@ -1,12 +1,10 @@
 const ArticleModel = require("../../model/articles/createArticleModel");
 
-
 const ArticleController = {
-
   createArticle: async (req, res) => {
     try {
       const articleData = req.body;
-      
+
       const imageArray = req.files;
 
       console.log(imageArray);
@@ -19,28 +17,22 @@ const ArticleController = {
 
       const articleInsertedId = article.id;
 
-      // // Use Promise.all to wait for all image insertions to complete
-      // const insertPromises = imageArray.map(async (item) => {
-      //   const imagePath = "uploads/" + item.originalname;
-      //   ArticleModel.insertArticleImages(articleInsertedId, imagePath, 1);
-      // });
-
-      // // Wait for all insertions to complete
-      // // await Promise.all(insertPromises);
-
-
       // Check if images are present before attempting to insert
 
-    if (imageArray && imageArray.length > 0) {
-      // Use Promise.all to wait for all image insertions to complete
-      const insertPromises = imageArray.map(async (item) => {
-        const imagePath = "uploads/" + item.originalname;
-        await ArticleModel.insertArticleImages(articleInsertedId, imagePath, 1);
-      });
+      if (imageArray && imageArray.length > 0) {
+        // Use Promise.all to wait for all image insertions to complete
+        const insertPromises = imageArray.map(async (item) => {
+          const imagePath = "uploads/" + item.originalname;
+          await ArticleModel.insertArticleImages(
+            articleInsertedId,
+            imagePath,
+            1
+          );
+        });
 
-      // Wait for all insertions to complete
-      await Promise.all(insertPromises);
-    }
+        // Wait for all insertions to complete
+        await Promise.all(insertPromises);
+      }
 
       return res.status(200).json({
         response_code: 200,
@@ -72,8 +64,8 @@ const ArticleController = {
         data: articles,
       });
     } catch (error) {
-          console.error(error.message);
-(error);
+      console.error(error.message);
+      error;
       res.status(500).send("Server Error");
     }
   },
@@ -91,7 +83,7 @@ const ArticleController = {
         data: articles,
       });
     } catch (error) {
-          console.error(error.message);
+      console.error(error.message);
       res.status(500).send("Server Error");
     }
   },
@@ -126,10 +118,10 @@ const ArticleController = {
       return res.status(200).json({
         response_code: 200,
         response_message: "Success",
-        data: { message: 'Category updated successfully' },
+        data: { message: "Category updated successfully" },
       });
     } catch (error) {
-          console.error(error.message);
+      console.error(error.message);
       res.status(500).send("Server Error");
     }
   },
@@ -147,10 +139,10 @@ const ArticleController = {
       return res.status(200).json({
         response_code: 200,
         response_message: "Success",
-        data: { message: 'Category deleted successfully' },
+        data: { message: "Category deleted successfully" },
       });
     } catch (error) {
-          console.error(error.message);
+      console.error(error.message);
       res.status(500).json({ error: "Internal Server Error" });
     }
   },
@@ -174,12 +166,8 @@ const ArticleController = {
     }
   },
 
-
-
   searchArticleByTitleWithImages: async (req, res) => {
     try {
-      //const title = req.query.title || ""; // Assuming the search term is passed as 'title' in the query string
-
       const title =
         req.query.title == ""
           ? null
@@ -209,7 +197,7 @@ const ArticleController = {
       const categories = await ArticleModel.getMainCategory();
 
       if (categories.length === 0) {
-            return res.status(404).json({ message: "Articles not found" });
+        return res.status(404).json({ message: "Articles not found" });
       }
 
       return res.status(200).json({
@@ -221,8 +209,6 @@ const ArticleController = {
       console.error(error.message);
       res.status(500).send("Server Error");
     }
-  
-    
   },
 
   getSubCategory: async (req, res) => {
@@ -244,24 +230,6 @@ const ArticleController = {
       console.error(error.message);
       res.status(500).send("Server Error");
     }
-     
-        
-       
-    // try {
-    //   const { id } = req.params;
-    //   const categories = await ArticleModel.getSubCategory(id,res);
-    
-    //   if (categories.length === 0) {
-    //      errResponse(res, statusCode.Not_Found, Config.errCodeError, messages.noRecordFound, "");
-    //      return;
-    //   }
-    
-    //    successResponse(res, statusCode.OK, Config.errCodeSuccess, messages.successMessage, categories);
-    //    return;
-    // } catch (error) {
-    //    errResponse(res, statusCode.Internal_Server_Error, Config.errCodeError, messages.serverErrorMessage, "");
-    //    return;
-    // }
   },
 };
 

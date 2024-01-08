@@ -109,9 +109,6 @@ const InterviewQuestionModel = {
     try{
       var title = reqQuery.title === undefined ? null : reqQuery.title != "null" ? reqQuery.title : null;
 
-      // title = title.toLowerCase();
-      // console.log("title = "+title);
-
       const searchInterviewQuestion = await InterviewQuestion.search(title, res);
       return searchInterviewQuestion;
     } catch (error) {
