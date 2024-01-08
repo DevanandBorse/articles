@@ -43,7 +43,7 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
-const articleCategoriesRoutes=require('./index/routes/articlcategories/articleCategoriesRoutes');
+const articleCategoriesRoutes=require('./index/routes/articlecategories/articleCategoriesRoutes');
 const createArticleRoutes=require('./index/routes/articles/createArticleRoutes');
 
 app.use('/apis',articleCategoriesRoutes);
