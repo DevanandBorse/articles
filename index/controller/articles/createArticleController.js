@@ -126,7 +126,7 @@ const ArticleController = {
       return res.status(200).json({
         response_code: 200,
         response_message: "Success",
-        data: { message: 'Category updated successfully' },
+        data: { message: 'Article updated successfully' },
       });
     } catch (error) {
           console.error(error.message);
@@ -147,7 +147,7 @@ const ArticleController = {
       return res.status(200).json({
         response_code: 200,
         response_message: "Success",
-        data: { message: 'Category deleted successfully' },
+        data: { message: 'Article deleted successfully' },
       });
     } catch (error) {
           console.error(error.message);

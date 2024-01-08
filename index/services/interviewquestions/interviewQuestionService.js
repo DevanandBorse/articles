@@ -40,29 +40,6 @@ insertImage: async (interviewId, imagePath, status) => {
       }
     },
 
-    // Get interview question by id
-    // getById: async (id) => {
-    //   var status = 1;
-    //   try {
-    //     const interviewQuestion = await Pool.query(
-    //       "SELECT a.id,a.title,a.author,a.content,a.category,a.subcategory,a.tags,a.status,(SELECT c.category_name FROM interview_questions_main_category as c WHERE c.id = a.category) as category,(SELECT c.category_name FROM interview_questions_sub_category as c WHERE c.id = a.subcategory) as subcategory,a.created_on FROM interview_questions as a WHERE a.id = $1 AND a.status = 1", [id]
-    //     );
-    //     return interviewQuestion.rows;
-    //   } catch (error) {
-    //     console.error(error.message);
-    //   }
-    //   try {
-    //     const interviewQuestion1 = await Pool.query(
-    //       "SELECT a.path as path FROM interview_questions_images as a WHERE a.interview_questions_id = $1 AND a.status = $2", [id, status]
-    //     );
-    //     console.log('status in getById = '+status);
-    //     return interviewQuestion1.rows;
-    //   } catch (error) {
-    //     console.error(error.message);
-    //   }
-    // },
-    
-
     getById: async (id) => {
       try {
         const interviewQuestion = await Pool.query(
@@ -82,7 +59,7 @@ insertImage: async (interviewId, imagePath, status) => {
         const interviewQuestions = await Pool.query(
           "SELECT a.id,a.title,a.author,a.category,a.subcategory,a.tags,a.status,(SELECT c.category_name FROM interview_questions_main_category as c WHERE c.id = a.category) as category,(SELECT c.category_name FROM interview_questions_sub_category as c WHERE c.id = a.subcategory) as subcategory,a.created_on FROM interview_questions as a WHERE a.category = $1 AND a.subcategory = $2 ORDER BY id DESC OFFSET $3 LIMIT $4 ", [maincatid, subcatid, offset, limit]
         );
-        return interviewQuestions.rows[0];
+        return interviewQuestions.rows;
       } catch(error){
         console.error(error.message);
       }
@@ -94,7 +71,7 @@ insertImage: async (interviewId, imagePath, status) => {
           "UPDATE interview_questions SET title=$1, author=$2, content=$3, category=$4, subcategory=$5, tags=$6, created_on=$7 WHERE id=$8 RETURNING *",
         [title, author, content, category, subcategory, tags, created_on, id]
         );
-        return interviewQuestions.rows[0];
+        return interviewQuestions.rows;
       } catch (error) {
         console.error(error.message);
       }
@@ -104,27 +81,19 @@ insertImage: async (interviewId, imagePath, status) => {
       try{
         var status = 1;
         const interviewQuestions = await Pool.query(
-      //     `SELECT a.id,a.title,a.author,a.content,a.category,a.subcategory,a.tags,a.status,(SELECT c.category_name FROM interview_questions_main_category as c WHERE c.id = a.category) as category,(SELECT c.category_name FROM interview_questions_sub_category as c WHERE c.id = a.subcategory) as subcategory,a.created_on FROM interview_questions as a
-			// INNER JOIN interview_questions_main_category as iqmain ON iqmain.id = a.category 
-			// INNER JOIN interview_questions_sub_category as iqsub ON iqsub.id = a.subcategory  
-			// WHERE a.status = 1 AND (a.title LIKE '%${title}%' 
-			// OR iqmain.category_name LIKE '%${title}%' 
-			// OR iqsub.category_name LIKE '%${title}%')`
-
       `SELECT 
       a.id, a.title, a.author, a.content, a.category, a.subcategory, a.tags, a.status,
       (SELECT c.category_name FROM interview_questions_main_category as c WHERE c.id = a.category) as category,
       (SELECT c.category_name FROM interview_questions_sub_category as c WHERE c.id = a.subcategory) as subcategory,
-      a.created_on, img.path as image_path  -- Include image path in selection
-  FROM 
+      a.created_on, img.path as image_path  -- Include image path in selection FROM 
       interview_questions as a
-  INNER JOIN 
+      INNER JOIN 
       interview_questions_main_category as iqmain ON iqmain.id = a.category 
-  INNER JOIN 
+      INNER JOIN 
       interview_questions_sub_category as iqsub ON iqsub.id = a.subcategory  
-  LEFT JOIN 
+      LEFT JOIN 
       interview_questions_images as img ON img.interview_questions_id = a.id  -- Join with images table
-  WHERE 
+      WHERE 
       a.status = 1 AND (
           a.title LIKE '%${title}%' 
           OR iqmain.category_name LIKE '%${title}%' 
@@ -137,28 +106,6 @@ insertImage: async (interviewId, imagePath, status) => {
         console.error(error.message);
       }
     }, 
-
-//     SELECT 
-//     a.id, a.title, a.author, a.content, a.category, a.subcategory, a.tags, a.status,
-//     (SELECT c.category_name FROM interview_questions_main_category as c WHERE c.id = a.category) as category,
-//     (SELECT c.category_name FROM interview_questions_sub_category as c WHERE c.id = a.subcategory) as subcategory,
-//     a.created_on, img.path as image_path  -- Include image path in selection
-// FROM 
-//     interview_questions as a
-// INNER JOIN 
-//     interview_questions_main_category as iqmain ON iqmain.id = a.category 
-// INNER JOIN 
-//     interview_questions_sub_category as iqsub ON iqsub.id = a.subcategory  
-// LEFT JOIN 
-//     interview_questions_images as img ON img.interview_questions_id = a.id  -- Join with images table
-// WHERE 
-//     a.status = 1 AND (
-//         a.title LIKE '%${title}%' 
-//         OR iqmain.category_name LIKE '%${title}%' 
-//         OR iqsub.category_name LIKE '%${title}%'
-//         OR img.path LIKE '%${title}%'  -- Include image path in search criteria
-//     )
-
 
     delete: async (id) => {
       try {

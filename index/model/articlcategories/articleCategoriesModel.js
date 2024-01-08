@@ -5,7 +5,7 @@ const ArticleCategoriesModel={
 
     try{
       const categories = await ArticleCategoriesService.createCategories(title, image_url, parent_category, status);
-      return categories.rows;
+      return categories.rows[0];
     } catch (error) {
       console.error(error.message);
     }
@@ -14,7 +14,7 @@ const ArticleCategoriesModel={
   getAllCategories : async () => {
   try {
     const categories = await ArticleCategoriesService.getAllCategories();
-    console.log(categories.rows);
+   // console.log(categories.rows);
     return categories.rows;
   } catch (error) {
     console.error(error.message);
