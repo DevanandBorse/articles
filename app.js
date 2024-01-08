@@ -42,14 +42,6 @@ app.use("/apis", interviewQuestionRoute);
 app.use("/apis", articleCategoriesRoutes);
 app.use("/apis", createArticleRoutes);
 
-
-const articleCategoriesRoutes=require('./index/routes/articlcategories/articleCategoriesRoutes');
-const createArticleRoutes=require('./index/routes/articles/createArticleRoutes');
-
-app.use('/apis',articleCategoriesRoutes);
-app.use('/apis',createArticleRoutes);
-
-
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
