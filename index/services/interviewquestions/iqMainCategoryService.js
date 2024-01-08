@@ -7,7 +7,7 @@ const MainCategoryService = {
                 "INSERT INTO interview_questions_main_category(category_name) VALUES($1) RETURNING *",
                 [category_name]
             );
-            return maincategory.rows[0];
+            return maincategory.rows;
         } catch (error) {
             console.error(error.message);
         }

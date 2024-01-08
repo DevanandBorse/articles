@@ -1,44 +1,75 @@
 // All related to database connection
-const Pool = require('../../../database');
+const Pool = require("../../../database");
 
 const InterviewQuestion = {
   // Create interview question
-    create: async (title, author, content, category, subcategory, tags, status, created_on, uid) => {
-      try {
-        const interviewQuestion = await Pool.query(
-          "INSERT INTO interview_questions(title, author, content, category, subcategory, tags, status, created_on, uid) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *",
-          [title, author, content, category, subcategory, tags, status, created_on, uid]
-        );
-        return interviewQuestion.rows[0];
-      } catch (error) {
-        console.error(error.message);
-      }
-    },
+  create: async (
+    title,
+    author,
+    content,
+    category,
+    subcategory,
+    tags,
+    status,
+    created_on,
+    uid
+  ) => {
+    try {
+      const interviewQuestion = await Pool.query(
+        "INSERT INTO interview_questions(title, author, content, category, subcategory, tags, status, created_on, uid) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *",
+        [
+          title,
+          author,
+          content,
+          category,
+          subcategory,
+          tags,
+          status,
+          created_on,
+          uid,
+        ]
+      );
+      return interviewQuestion.rows[0];
+    } catch (error) {
+      console.error(error.message);
+    }
+  },
 
-insertImage: async (interviewId, imagePath, status) => {
-  try {
-    const interviewImages = await Pool.query(
-      `INSERT INTO interview_questions_images (interview_questions_id, path, status) VALUES ($1, $2, $3)`, 
-      [interviewId, imagePath, status]
-    );
-    return interviewImages;
-  } catch (error) {
-    throw new Error(`Error in inserting interview image: ${error.message}`);
-  }
-},
+  insertImage: async (interviewId, imagePath, status) => {
+    try {
+      const interviewImages = await Pool.query(
+        `INSERT INTO interview_questions_images (interview_questions_id, path, status) VALUES ($1, $2, $3)`,
+        [interviewId, imagePath, status]
+      );
+      return interviewImages;
+    } catch (error) {
+      throw new Error(`Error in inserting interview image: ${error.message}`);
+    }
+  },
 
+  // Get all interview questions whose status is 1
+  getAll: async () => {
+    try {
+      const interviewQuestions = await Pool.query(
+        "SELECT id,title,author,content,category,subcategory,tags,status,created_on,uid FROM interview_questions where status = 1"
+      );
+      return interviewQuestions.rows;
+    } catch (error) {
+      console.error(error.message);
+    }
+  },
 
-    // Get all interview questions whose status is 1
-    getAll: async () => {
-      try {
-        const interviewQuestions = await Pool.query(
-          "SELECT id,title,author,content,category,subcategory,tags,status,created_on,uid FROM interview_questions where status = 1"
-        );
-        return interviewQuestions.rows;
-      } catch (error) {
-        console.error(error.message);
-      }
-    },
+  getById: async (id) => {
+    try {
+      const interviewQuestion = await Pool.query(
+        "SELECT a.id, a.title, a.author, a.content, a.category, a.subcategory, a.tags, a.status, (SELECT c.category_name FROM interview_questions_main_category as c WHERE c.id = a.category) as category, (SELECT c.category_name FROM interview_questions_sub_category as c WHERE c.id = a.subcategory) as subcategory, a.created_on, i.path AS image_path FROM interview_questions as a LEFT JOIN interview_questions_images AS i ON a.id = i.interview_questions_id WHERE a.id = $1 AND a.status = 1",
+        [id]
+      );
+      return interviewQuestion.rows;
+    } catch (error) {
+      console.error(error.message);
+    }
+  },
 
     getById: async (id) => {
       try {
@@ -85,7 +116,8 @@ insertImage: async (interviewId, imagePath, status) => {
       a.id, a.title, a.author, a.content, a.category, a.subcategory, a.tags, a.status,
       (SELECT c.category_name FROM interview_questions_main_category as c WHERE c.id = a.category) as category,
       (SELECT c.category_name FROM interview_questions_sub_category as c WHERE c.id = a.subcategory) as subcategory,
-      a.created_on, img.path as image_path  -- Include image path in selection FROM 
+      a.created_on, img.path as image_path  -- Include image path in selection 
+      FROM 
       interview_questions as a
       INNER JOIN 
       interview_questions_main_category as iqmain ON iqmain.id = a.category 
@@ -118,5 +150,6 @@ insertImage: async (interviewId, imagePath, status) => {
         console.error(error.message);
       }
     }
-  };
-  module.exports = InterviewQuestion;
+  }
+
+module.exports = InterviewQuestion;

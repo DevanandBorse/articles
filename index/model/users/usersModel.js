@@ -1,8 +1,4 @@
-//const userModel = require('../models/userModel');
-//const { Error } = require("sequelize");
-//const userModel=require("../../models/users/userModels");
-//const usersModel=require("../../model/users/usersModel");
-//const userService=require("../../service/users/userService");
+
 const userService=require("../../../index/services/users/userService");
 const userModel={
 //Insert user
@@ -56,6 +52,7 @@ getUsers : async () => {
   }
     
 },
+//update user by id
  updateUserById : async (id, userData) => {
   try {
     const updatedUser = await userService.updateUserById(id, userData);
@@ -64,7 +61,7 @@ getUsers : async () => {
     console.error(error.message);
   }
   },
-
+//delete user by id
    deleteUserById : async (id) => {
     try {
       const deletedUser = await userService.deleteUserById(id);

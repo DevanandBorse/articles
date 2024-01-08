@@ -30,28 +30,12 @@ const upload = multer({
 	},
 });
 
-// // Multer configuration for image upload
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, 'uploads/'); // Set your desired upload directory
-//   },
-//   filename: function (req, file, cb) {
-//     cb(null, Date.now() + '-' + file.originalname);
-//   },
-// });
-
-// const upload = multer({ storage: storage });
-
 // POST request for creating a category
 router.post('/categories', upload.single('image'),ArticleCategoriesController.createCategories);
 router.get('/categories', ArticleCategoriesController.getAllCategories);
 router.get('/categories/:id',ArticleCategoriesController.searchCategoriesById);
 router.put('/categories/:id',ArticleCategoriesController.updateCategoriesById);
 router.delete('/categories/:id',ArticleCategoriesController.deleteCategoriesById);
-
-// router.get('/parentcategorieslist/:pagesize',articlecategoriesController.getParentCategory);
-// router.get('/subcategorieslist/:category/:subcategory',articlecategoriesController.getSubCategory);
-
 
 
 module.exports = router;

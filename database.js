@@ -1,4 +1,4 @@
-const { Pool } = require('pg');
+const { Pool } = require("pg");
 
 const pool = new Pool({
   user: 'postgres',
@@ -10,9 +10,9 @@ const pool = new Pool({
 
 pool.connect((err) => {
   if (err) {
-    console.error('Error connecting to the database:', err);
+    console.error("Error connecting to the database:", err);
   } else {
-    console.log('Connected to the database');
+    console.log("Connected to the database");
   }
 });
 
