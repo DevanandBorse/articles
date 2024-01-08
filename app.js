@@ -15,9 +15,7 @@ const userRoutes = require('./index/routes/users/userRoutes');
 const loginRoutes=require("./index/routes/login/loginRoutes");
 dotenv.config();
 
-// Initialize database connection
-// const db = require('./database');
-// db.connect();
+
 
 // Routes
 app.use('/apis',userRoutes);

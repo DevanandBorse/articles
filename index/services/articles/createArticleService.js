@@ -1,4 +1,3 @@
-// articleModel.js
 
 const Pool = require("../../../database"); // Assuming you have a separate file for database configuration
 

@@ -1,4 +1,3 @@
-// articleService.js
 
 const ArticleService = require("../../services/articles/createArticleService");
 
@@ -20,25 +19,14 @@ const ArticleModel = {
         imagePath,
         status
       );
-      //console.log("Image inserted successfully");
 
       return articleImages;
-      // Your database insertion logic here
     } catch (error) {
-      //console.error("Error in insertArticleImages:", error.message);
     console.error(error.message);
     }
   },
 
-  // insertArticleImages : async (article_id,path,status) => {
-  //   try{
-  //         const articleImages =await ArticleService.insertArticleImages(article_id,path,status);
-  //         return articleImages;
-  //   }catch (error) {
-  //     throw new Error("Error in the article service while searching by Images");
-  //   }
-
-  // },
+  
 
   getArticlesByPagination: async (pageno, limit) => {
     const offset = (pageno - 1) * limit;
@@ -110,21 +98,6 @@ const ArticleModel = {
 
     }
   },
-
-  // searchArticleByTitle: async (title) => {
-  //   try {
-
-  //     //const article = await ArticleService.searchArticleByTitle(title);
-  //     return await ArticleService.searchArticleByTitle(title);
-  //     // if(article.length==0){
-  //     //   console.log("Data not found..");
-  //     // }
-
-  //     //return article;
-  //   } catch (error) {
-  //     throw new Error("Error in the article service while searching by title");
-  //   }
-  // },
 
   searchArticleByTitleWithImages: async (title) => {
     try {
