@@ -51,7 +51,6 @@ const userService = {
       const {
         name,
         password,
-        email,
         address,
         mobile_number,
         status,
@@ -59,11 +58,11 @@ const userService = {
       } = userData;
 
       const updateUser = await pool.query(
-        "UPDATE users SET name=$1, password=$2, email=$3, address=$4, mobile_number=$5, status=$6, created_on=$7 WHERE id=$8 RETURNING *",
-        [name, password, email, address, mobile_number, status, created_on, id]
+        "UPDATE users SET name=$1, password=$2, address=$3, mobile_number=$4, status=$5, created_on=$6 WHERE id=$7 RETURNING *",
+        [name, password, address, mobile_number, status, created_on, id]
       );
 
-      return updateUser.rows[0];
+      return updateUser.rows;
     } catch (error) {
       console.error(error.message);
     }

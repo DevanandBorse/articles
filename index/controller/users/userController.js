@@ -44,7 +44,7 @@ const userController = {
       var id = req.params.id;
       const user = await usersModel.getUsersById(id);
       if (user.length === 0) {
-        res.status(404).json({
+        return res.status(404).json({
           response_code: 404,
           response_message: "Success",
           data: { message: "User Id not found" },
@@ -53,7 +53,7 @@ const userController = {
       return res.status(200).json({
         response_code: 200,
         response_message: "Success",
-        data: user,
+        data:user,
       });
     } catch (err) {
       console.error(err);
