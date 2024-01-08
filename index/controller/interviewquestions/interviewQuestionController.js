@@ -82,7 +82,6 @@ const InterviewQuestionController = {
   // get interview questions through pagination
   getInterviewQuestionsByPagination: async (req, res) => {
     try{
-      // :pageno/:limit/:maincatid/:subcatid
       var pageno = parseInt(req.params.pageno);
       var limit = parseInt(req.params.limit);
       var maincatid = parseInt(req.params.maincatid);
