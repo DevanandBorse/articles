@@ -37,7 +37,7 @@ const InterviewQuestionModel = {
         const interviewImages = await InterviewQuestion.insertImage(interviewId, imagePath, status);
         return interviewImages;
     } catch (error) {
-        throw new Error(`Error in inserting interview image: ${error.message}`);
+        console.error(error.message);
     }
 },
 
@@ -46,7 +46,7 @@ const InterviewQuestionModel = {
       const interviewquestion = await InterviewQuestion.getAll();
       return interviewquestion;
     } catch (error) {
-      console.error(error);
+      console.error(error.message);
     }
   },
 
@@ -55,7 +55,7 @@ const InterviewQuestionModel = {
       const interviewquestion = await InterviewQuestion.getById(id);
       return interviewquestion;
     } catch (error) {
-      console.error(error);
+      console.error(error.message);
     }
   },
 
@@ -69,7 +69,7 @@ const InterviewQuestionModel = {
       const getInterviewQuestionsByPagination = await InterviewQuestion.getPagination(maincatid, subcatid, offset, limit);
       return getInterviewQuestionsByPagination;
     } catch (error) {
-      console.error(error);
+      console.error(error.message);
     }
   },
 
@@ -101,7 +101,7 @@ const InterviewQuestionModel = {
         );
         return updateInterviewQuestion;
     } catch (error) {
-      console.error(error);
+      console.error(error.message);
     }
   },
 
@@ -112,7 +112,7 @@ const InterviewQuestionModel = {
       const searchInterviewQuestion = await InterviewQuestion.search(title, res);
       return searchInterviewQuestion;
     } catch (error) {
-      console.error(error);
+      console.error(error.message);
     }
   },
 
@@ -123,7 +123,7 @@ const InterviewQuestionModel = {
       return deleteInterviewQuestion;
 
     } catch (error) {
-      console.error(error);
+      console.error(error.message);
     }
   }
 };

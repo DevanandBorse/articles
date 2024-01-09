@@ -134,7 +134,7 @@ const ArticleController = {
       return res.status(200).json({
         response_code: 200,
         response_message: "Success",
-        data: { message: 'Articles updated successfully' }
+        data: { message: 'Article updated successfully' },
       });
     } catch (error) {
       console.error(error.message);

@@ -33,6 +33,7 @@ const InterviewQuestionController = {
       });
     } catch (error) {
       console.error(error.message);
+      
       res.status(500).send("Server Error");
     }
   },
@@ -88,7 +89,7 @@ const InterviewQuestionController = {
 
   // get interview questions through pagination
   getInterviewQuestionsByPagination: async (req, res) => {
-    try {
+    try{
       var pageno = parseInt(req.params.pageno);
       var limit = parseInt(req.params.limit);
       var maincatid = parseInt(req.params.maincatid);
@@ -107,7 +108,7 @@ const InterviewQuestionController = {
         return res.status(404).json({
           response_code: 404,
           response_message: "Success",
-          data: {message: "Interview question not found"},
+          data: { message: "Interview question not found" }
         });
       }
       res.status(200).json({
@@ -155,7 +156,7 @@ const InterviewQuestionController = {
         return res.status(404).json({
           response_code: 404,
           response_message: "Success",
-          data: { message: "Question not found" },
+          data: { message:"Data not found" }
         });
       }
       res.status(200).json({
