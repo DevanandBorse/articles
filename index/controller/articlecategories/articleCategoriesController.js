@@ -33,8 +33,12 @@ const ArticleCategoriesController = {
       const categories = await ArticleCategoriesModel.getAllCategories();
 
       if (categories.length === 0) {
-        return res.status(404).json({ message: "Category not found" });
-      }
+        return res.status(404).json({
+          response_code: 404,
+          response_message: "Success",
+          data: { message: "Category not found" }
+           });      
+       }      
 
       return res.status(200).json({
         response_code: 200,
@@ -46,14 +50,19 @@ const ArticleCategoriesController = {
       res.status(500).send("Server Error");
     }
   },
+
   searchCategoriesById: async (req, res) => {
     try {
       const { id } = req.params;
       const categories = await ArticleCategoriesModel.searchCategoriesById(id);
 
       if (!categories) {
-        return res.status(404).json({ message: "Data not found" });
-      }
+        return res.status(404).json({
+          response_code: 404,
+          response_message: "Success",
+          data: { message: "Category not found" }
+           });      
+          }      
 
       return res.status(200).json({
         response_code: 200,
@@ -79,9 +88,13 @@ const ArticleCategoriesController = {
       );
 
       if (!categories) {
-        return res.status(404).json({ message: "Category not found" });
-      }
-
+        return res.status(404).json({
+          response_code: 404,
+          response_message: "Success",
+          data: { message: "Id not found" }
+           });      
+          }
+      
       return res.status(200).json({
         response_code: 200,
         response_message: "Success",
@@ -99,8 +112,12 @@ const ArticleCategoriesController = {
       const categories = await ArticleCategoriesModel.deleteCategoriesById(id);
 
       if (!categories) {
-        return res.status(404).json({ message: "Category not found" });
-      }
+        return res.status(404).json({
+          response_code: 404,
+          response_message: "Success",
+          data: { message: "Id not found" }
+           });  
+                }
 
       return res.status(200).json({
         response_code: 200,

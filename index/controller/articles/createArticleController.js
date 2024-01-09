@@ -16,7 +16,8 @@ const ArticleController = {
           response_code: 404,
           response_message: "Success",
           data: { message: "Articles not Created" }
-           });      }
+           });      
+          }
 
       const articleInsertedId = article.id;
 
