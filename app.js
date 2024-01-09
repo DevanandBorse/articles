@@ -29,7 +29,7 @@ const iqMainCategoryRoute = require("./index/routes/interviewquestions/iqMainCat
 const iqSubCategoryRoute = require("./index/routes/interviewquestions/iqSubCategoryRoute");
 
 //Importing article category routes
-const articleCategoriesRoutes = require("./index/routes/articlcategories/articleCategoriesRoutes");
+const articleCategoriesRoutes = require("./index/routes/articlecategories/articleCategoriesRoutes");
 
 //Importing article routes
 const createArticleRoutes = require("./index/routes/articles/createArticleRoutes");
@@ -46,4 +46,5 @@ app.use("/apis", createArticleRoutes);
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
 

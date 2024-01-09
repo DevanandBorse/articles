@@ -1,4 +1,7 @@
-const ArticleCategoriesModel = require("../../model/articlcategories/articleCategoriesModel");
+
+const ArticleCategoriesModel = require('../../model/articlecategories/articleCategoriesModel');
+
+
 
 const ArticleCategoriesController = {
   createCategories: async (req, res) => {

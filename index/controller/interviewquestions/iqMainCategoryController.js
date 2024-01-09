@@ -10,7 +10,11 @@ const MainCategoryController = {
       );
 
       if (maincategory.length === 0) {
-        res.status(404).json({ response_message: "maincategory not found" });
+        return res.status(404).json({ 
+          response_code: 404,
+          response_message: "Success",
+          data: { message: "maincategory not found" }
+        });
       }
 
       res.status(200).json({
@@ -27,7 +31,11 @@ const MainCategoryController = {
     try {
       const maincategory = await MainCategoryModel.getmaincategory();
       if (maincategory.length === 0) {
-        res.status(404).json({ response_message: "category_name not found" });
+        return res.status(404).json({ 
+          response_code: 404,
+          response_message: "Success",
+          data: { message: "category_name not found" }
+        });
       }
 
       res.status(200).json({
@@ -50,13 +58,17 @@ const MainCategoryController = {
         category_name
       );
       if (maincategory.length === 0) {
-        return res.status(404).json({ response_message: "Id not found" });
+        return res.status(404).json({ 
+          response_code: 404,
+          response_message: "Success",
+          data: { message: "Id not found" }
+        });
       }
 
       res.status(200).json({
         response_code: 200,
         response_message: "Success",
-        data: maincategory,
+        data: { message: "maincategory updated successfully" },
       });
     } catch (error) {
       console.error(error.message);
@@ -69,12 +81,17 @@ const MainCategoryController = {
       var id = req.params.id;
       const maincategory = await MainCategoryModel.deletemaincategoryById(id);
       if (!maincategory) {
-        res.status(404).json({ response_message: "Id not found" });
+        return res.status(404).json({ 
+          response_code: 404,
+          response_message: "Success",
+          data: { message: "Id not found" }
+        });
       }
 
       res.status(200).json({
         response_code: 200,
         response_message: "Success",
+        data: { message: "maincategory deleted successfully" }
       });
     } catch (error) {
       console.error(error.message);
