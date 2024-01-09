@@ -115,7 +115,7 @@ const InterviewQuestion = {
       a.id, a.title, a.author, a.content, a.category, a.subcategory, a.tags, a.status,
       (SELECT c.category_name FROM interview_questions_main_category as c WHERE c.id = a.category) as category,
       (SELECT c.category_name FROM interview_questions_sub_category as c WHERE c.id = a.subcategory) as subcategory,
-      a.created_on, img.path as image_path  -- Include image path in selection
+      a.created_on, img.path as image_path  -- Include image path in selection 
   FROM 
       interview_questions as a
   INNER JOIN 

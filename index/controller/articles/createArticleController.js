@@ -12,10 +12,14 @@ const ArticleController = {
       const article = await ArticleModel.createArticle(articleData);
 
       if (!article || !article.id) {
-        return res.status(404).json({ message: "Article not found" });
-      }
+       return res.status(404).json({
+          response_code: 404,
+          response_message: "Success",
+          data: { message: "Articles not Created" }
+           });      }
 
       const articleInsertedId = article.id;
+
 
       // Check if images are present before attempting to insert
 
@@ -55,8 +59,11 @@ const ArticleController = {
       );
 
       if (articles.length === 0) {
-        return res.status(404).json({ message: "Articles not found" });
-      }
+        return res.status(404).json({
+          response_code: 404,
+          response_message: "Success",
+          data: { message: "Articles not found" }
+           });      }
 
       return res.status(200).json({
         response_code: 200,
@@ -74,8 +81,13 @@ const ArticleController = {
     try {
       const articles = await ArticleModel.getAllArticles();
       if (articles.length === 0) {
-        return res.status(404).json({ message: "Articles not found" });
-      }
+        return res.status(404).json({
+          response_code: 404,
+          response_message: "Success",
+          data: { message: "Articles not found" }
+           });    
+          
+          }
 
       return res.status(200).json({
         response_code: 200,
@@ -113,12 +125,16 @@ const ArticleController = {
       );
 
       if (!updatedArticle) {
-        return res.status(404).json({ message: "Article not found" });
+        return res.status(404).json({
+          response_code: 404,
+          response_message: "Success",
+          data: { message: "Articles not found" }
+           });
       }
       return res.status(200).json({
         response_code: 200,
         response_message: "Success",
-        data: { message: "Category updated successfully" },
+        data: { message: 'Articles updated successfully' }
       });
     } catch (error) {
       console.error(error.message);
@@ -133,13 +149,17 @@ const ArticleController = {
       const deletedArticle = await ArticleModel.deleteArticleById(id);
 
       if (deletedArticle.rowCount === 0) {
-        return res.status(404).json({ messages: "Article not found" });
+        return res.status(404).json({
+          response_code: 404,
+          response_message: "Success",
+          data: { message: "Article id not found" }
+           });
       }
 
       return res.status(200).json({
         response_code: 200,
         response_message: "Success",
-        data: { message: "Category deleted successfully" },
+        data: { message: 'Article deleted successfully' },
       });
     } catch (error) {
       console.error(error.message);
@@ -153,7 +173,11 @@ const ArticleController = {
       const article = await ArticleModel.getArticleById(id);
 
       if (article.length === 0) {
-        return res.status(404).json({ message: "Articles not found" });
+        return res.status(404).json({
+          response_code: 404,
+          response_message: "Success",
+          data: { message: "Article id not found" }
+           });
       }
       return res.status(200).json({
         response_code: 200,
@@ -168,6 +192,7 @@ const ArticleController = {
 
   searchArticleByTitleWithImages: async (req, res) => {
     try {
+
       const title =
         req.query.title == ""
           ? null
@@ -178,8 +203,11 @@ const ArticleController = {
       const articles = await ArticleModel.searchArticleByTitleWithImages(title);
 
       if (!articles || articles.length === 0) {
-        return res.status(404).json({ message: "Data not found" });
-      }
+        return res.status(404).json({
+          response_code: 404,
+          response_message: "Success",
+          data: { message: "Article not found" }
+           });      }
 
       return res.status(200).json({
         response_code: 200,
@@ -197,8 +225,11 @@ const ArticleController = {
       const categories = await ArticleModel.getMainCategory();
 
       if (categories.length === 0) {
-        return res.status(404).json({ message: "Articles not found" });
-      }
+        return res.status(404).json({
+          response_code: 404,
+          response_message: "Success",
+          data: { message: "Category not found" }
+           });      }
 
       return res.status(200).json({
         response_code: 200,
@@ -218,7 +249,11 @@ const ArticleController = {
 
     try {
       if (categories.length === 0) {
-        return res.status(404).json({ message: "Articles not found" });
+        return res.status(404).json({
+          response_code: 404,
+          response_message: "Success",
+          data: { message: "Category not found" }
+           });   
       }
 
       return res.status(200).json({
@@ -230,6 +265,7 @@ const ArticleController = {
       console.error(error.message);
       res.status(500).send("Server Error");
     }
+
   },
 };
 

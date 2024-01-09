@@ -1,5 +1,3 @@
-
-
 const ArticleService = require("../../services/articles/createArticleService");
 
 const ArticleModel = {
@@ -20,16 +18,13 @@ const ArticleModel = {
         imagePath,
         status
       );
-      
 
       return articleImages;
-      // Your database insertion logic here
     } catch (error) {
-      
+
     console.error(error.message);
     }
   },
-
 
   getArticlesByPagination: async (pageno, limit) => {
     const offset = (pageno - 1) * limit;
@@ -102,7 +97,6 @@ const ArticleModel = {
     }
   },
 
-  
 
   searchArticleByTitleWithImages: async (title) => {
     try {

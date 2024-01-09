@@ -5,17 +5,17 @@ const articleController = require("../../controller/articles/createArticleContro
 
 const multer = require("multer");
 const path = require("path");
-// var aws = require('aws-sdk')
-// require("aws-sdk/lib/maintenance_mode_message").suppress = true;
-// var multerS3 = require('multer-s3')
+var aws = require('aws-sdk')
+require("aws-sdk/lib/maintenance_mode_message").suppress = true;
+var multerS3 = require('multer-s3')
 
-// aws.config.update({
-//     secretAccessKey: "2xZ5RUGWlJr9uM62+ewruU1esba+9GTsqqJeUmvr",
-//     accessKeyId: "AKIAW4VARQIH3RBBIEEC",
-//     region: "ap-south-1"
-// })
+aws.config.update({
+    secretAccessKey: "2xZ5RUGWlJr9uM62+ewruU1esba+9GTsqqJeUmvr",
+    accessKeyId: "AKIAW4VARQIH3RBBIEEC",
+    region: "ap-south-1"
+})
 
-// const s3 = new aws.S3();
+const s3 = new aws.S3();
 
 const storageEngine = multer.diskStorage({
 	destination: "uploads",
@@ -43,14 +43,39 @@ const upload = multer({
 });
 
 
+const upload1 = multer({
+    storage: multerS3({
+        s3: s3,
+        bucket: "techbit",
+        metadata: function (req, file, cb) {
+            cb(null, { fieldName: file.fieldname });
+        },
+        key: function (req, file, cb) {
+            var fullPath = 'techbit/articles/images/' + file.originalname;
+            cb(null, fullPath)
+        }
+    })
+})
+
+
+
+// router.post('/apis/testimg',upload.array("images", 5), (req, res) => {
+//     console.log(req.files);	
+// });
+
+//router.post('/articles',articleController.createArticle);
 router.post('/articles', upload.array('images',5), articleController.createArticle);
-router.get("/articles", articleController.getAllArticles);
+router.get("/allarticles", articleController.getAllArticles);
 router.get("/articles/:id", articleController.getArticleById);
 router.put("/articles/:id", articleController.updateArticleById);
 router.delete("/articles/:id", articleController.deleteArticleById);
+//router.get("/searcharticles/", articleController.searchArticleByTitle);
 router.get("/articles/:pageno/:limit",articleController.getArticlesByPagination);
 router.get("/getMainCategory", articleController.getMainCategory);
 router.get("/getSubCategory/:id",articleController.getSubCategory);
 router.get('/articles', articleController.searchArticleByTitleWithImages);
+
+
+
 
 module.exports = router;
