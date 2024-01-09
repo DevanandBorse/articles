@@ -1,31 +1,31 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const InterviewQuestionController = require('../../controller/interviewquestions/interviewQuestionController');
+const InterviewQuestionController = require("../../controller/interviewquestions/interviewQuestionController");
 
-const multer = require('multer');
-const path = require('path');
+const multer = require("multer");
+const path = require("path");
 
 var aws = require('aws-sdk')
 require("aws-sdk/lib/maintenance_mode_message").suppress = true;
 var multerS3 = require('multer-s3');
 
 const storageEngine = multer.diskStorage({
-    destination: "uploads",
-    filename: (req, file, cb) => {
-        cb(null, `${Date.now()}--${file.originalname}`);
-        console.log("file.original name = "+file.originalname);
-    },
+  destination: "uploads",
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}--${file.originalname}`);
+    console.log("file.original name = " + file.originalname);
+  },
 });
 
 const checkFileType = function (file, cb) {
-    const fileTypes = /jpeg|jpg|png|gif|svg/;
-    const extName = fileTypes.test(path.extname(file.originalname).toLowerCase());
-    const mimeType = fileTypes.test(file.mimetype); // Corrected from file.mimeType
-    if(mimeType && extName) {
-        return cb(null, true);
-    } else {
-        cb("Error: You can only upload images!");
-    }
+  const fileTypes = /jpeg|jpg|png|gif|svg/;
+  const extName = fileTypes.test(path.extname(file.originalname).toLowerCase());
+  const mimeType = fileTypes.test(file.mimetype); // Corrected from file.mimeType
+  if (mimeType && extName) {
+    return cb(null, true);
+  } else {
+    cb("Error: You can only upload images!");
+  }
 };
 
 const upload = multer({
