@@ -78,7 +78,7 @@ const InterviewQuestion = {
         "SELECT a.id,a.title,a.author,a.category,a.subcategory,a.tags,a.status,(SELECT c.category_name FROM interview_questions_main_category as c WHERE c.id = a.category) as category,(SELECT c.category_name FROM interview_questions_sub_category as c WHERE c.id = a.subcategory) as subcategory,a.created_on FROM interview_questions as a WHERE a.category = $1 AND a.subcategory = $2 ORDER BY id DESC OFFSET $3 LIMIT $4 ",
         [maincatid, subcatid, offset, limit]
       );
-      return interviewQuestions.rows[0];
+      return interviewQuestions.rows;
     } catch (error) {
       console.error(error.message);
     }
@@ -101,7 +101,7 @@ const InterviewQuestion = {
         "UPDATE interview_questions SET title=$1, author=$2, content=$3, category=$4, subcategory=$5, tags=$6, created_on=$7 WHERE id=$8 RETURNING *",
         [title, author, content, category, subcategory, tags, created_on, id]
       );
-      return interviewQuestions.rows[0];
+      return interviewQuestions.rows;
     } catch (error) {
       console.error(error.message);
     }

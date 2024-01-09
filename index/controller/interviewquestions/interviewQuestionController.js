@@ -105,7 +105,9 @@ const InterviewQuestionController = {
 
       if (interviewquestion.length === 0) {
         return res.status(404).json({
-          response_message: "Interview question not found",
+          response_code: 404,
+          response_message: "Success",
+          data: {message: "Interview question not found"},
         });
       }
       res.status(200).json({

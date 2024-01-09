@@ -65,7 +65,7 @@ const InterviewQuestionModel = {
       var subcatid = subcatid;
       var offset = offset;
       var limit = limit;
-      console.log("Limit = "+limit);
+      // console.log("Limit = "+limit);
       const getInterviewQuestionsByPagination = await InterviewQuestion.getPagination(maincatid, subcatid, offset, limit);
       return getInterviewQuestionsByPagination;
     } catch (error) {

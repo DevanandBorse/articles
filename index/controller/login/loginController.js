@@ -6,9 +6,7 @@ const loginController = {
       const { email, password } = req.body;
       console.log(email);
       if (!email || !password) {
-        return res
-          .status(400)
-          .json({ message: "Please provide email and password" });
+        return res.status(400).json({ message: "Please provide email and password" });
       }
 
       const result = await LoginModel.loginUser(email, password);
