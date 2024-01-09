@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const articleController = require("../../controller/articles/createArticleController");
 
-
 const multer = require("multer");
 const path = require("path");
 var aws = require('aws-sdk')
@@ -57,8 +56,10 @@ const upload1 = multer({
     })
 })
 
-//Article API's
-router.post('/articles', upload.array('images',5), articleController.createArticle);
+
+//API for image test
+router.post('/articles/testimg', upload.array('images',5), articleController.createArticle);
+
 router.post('/articles', upload1.array('images',5), articleController.createArticle);
 router.get("/allarticles", articleController.getAllArticles);
 router.get("/articles/:id", articleController.getArticleById);

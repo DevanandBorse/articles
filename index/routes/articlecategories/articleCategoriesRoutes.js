@@ -4,6 +4,17 @@ const ArticleCategoriesController = require('../../controller/articlecategories/
 
 const multer = require('multer');
 const path = require('path');
+var aws = require('aws-sdk')
+require("aws-sdk/lib/maintenance_mode_message").suppress = true;
+var multerS3 = require('multer-s3')
+
+aws.config.update({
+    secretAccessKey: "2xZ5RUGWlJr9uM62+ewruU1esba+9GTsqqJeUmvr",
+    accessKeyId: "AKIAW4VARQIH3RBBIEEC",
+    region: "ap-south-1"
+})
+
+const s3 = new aws.S3();
 
 const storageEngine = multer.diskStorage({
 	destination: "uploads",
@@ -30,8 +41,25 @@ const upload = multer({
 	},
 });
 
-// POST request for creating a category
-router.post('/categories', upload.single('image'),ArticleCategoriesController.createCategories);
+const upload1 = multer({
+    storage: multerS3({
+        s3: s3,
+        bucket: "techbit",
+        metadata: function (req, file, cb) {
+            cb(null, { fieldName: file.fieldname });
+        },
+        key: function (req, file, cb) {
+            var fullPath = 'techbit/articles/images/' + file.originalname;
+            cb(null, fullPath)
+        }
+    })
+})
+
+// Category API's
+//AWS POST API
+router.post('/categories', upload1.single('image'),ArticleCategoriesController.createCategories);
+// Testig post api
+router.post('/categories/testimg', upload.single('image'),ArticleCategoriesController.createCategories);
 router.get('/categories', ArticleCategoriesController.getAllCategories);
 router.get('/categories/:id',ArticleCategoriesController.searchCategoriesById);
 router.put('/categories/:id',ArticleCategoriesController.updateCategoriesById);
