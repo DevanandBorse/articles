@@ -58,18 +58,12 @@ const upload1 = multer({
 })
 
 
-
-// router.post('/apis/testimg',upload.array("images", 5), (req, res) => {
-//     console.log(req.files);	
-// });
-
-//router.post('/articles',articleController.createArticle);
 router.post('/articles', upload.array('images',5), articleController.createArticle);
+router.post('/articles', upload1.array('images',5), articleController.createArticle);
 router.get("/allarticles", articleController.getAllArticles);
 router.get("/articles/:id", articleController.getArticleById);
 router.put("/articles/:id", articleController.updateArticleById);
 router.delete("/articles/:id", articleController.deleteArticleById);
-//router.get("/searcharticles/", articleController.searchArticleByTitle);
 router.get("/articles/:pageno/:limit",articleController.getArticlesByPagination);
 router.get("/getMainCategory", articleController.getMainCategory);
 router.get("/getSubCategory/:id",articleController.getSubCategory);
