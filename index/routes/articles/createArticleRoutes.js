@@ -57,7 +57,7 @@ const upload1 = multer({
     })
 })
 
-
+//Article API's
 router.post('/articles', upload.array('images',5), articleController.createArticle);
 router.post('/articles', upload1.array('images',5), articleController.createArticle);
 router.get("/allarticles", articleController.getAllArticles);

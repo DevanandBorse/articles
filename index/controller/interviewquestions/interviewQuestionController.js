@@ -109,8 +109,7 @@ const InterviewQuestionController = {
           response_code: 404,
           response_message: "Success",
           data: { message: "Interview question not found" }
-          
-        })
+        });
       }
       res.status(200).json({
         response_code: 200,

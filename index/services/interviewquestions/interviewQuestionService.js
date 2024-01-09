@@ -59,18 +59,6 @@ const InterviewQuestion = {
     }
   },
 
-  getById: async (id) => {
-    try {
-      const interviewQuestion = await Pool.query(
-        "SELECT a.id, a.title, a.author, a.content, a.category, a.subcategory, a.tags, a.status, (SELECT c.category_name FROM interview_questions_main_category as c WHERE c.id = a.category) as category, (SELECT c.category_name FROM interview_questions_sub_category as c WHERE c.id = a.subcategory) as subcategory, a.created_on, i.path AS image_path FROM interview_questions as a LEFT JOIN interview_questions_images AS i ON a.id = i.interview_questions_id WHERE a.id = $1 AND a.status = 1",
-        [id]
-      );
-      return interviewQuestion.rows;
-    } catch (error) {
-      console.error(error.message);
-    }
-  },
-
     getById: async (id) => {
       try {
         const interviewQuestion = await Pool.query(
@@ -83,6 +71,18 @@ const InterviewQuestion = {
       }
     },
     
+  // Get interview questions using pagination
+  getPagination: async (maincatid, subcatid, offset, limit) => {
+    try {
+      const interviewQuestions = await Pool.query(
+        "SELECT a.id,a.title,a.author,a.category,a.subcategory,a.tags,a.status,(SELECT c.category_name FROM interview_questions_main_category as c WHERE c.id = a.category) as category,(SELECT c.category_name FROM interview_questions_sub_category as c WHERE c.id = a.subcategory) as subcategory,a.created_on FROM interview_questions as a WHERE a.category = $1 AND a.subcategory = $2 ORDER BY id DESC OFFSET $3 LIMIT $4 ",
+        [maincatid, subcatid, offset, limit]
+      );
+      return interviewQuestions.rows;
+    } catch (error) {
+      console.error(error.message);
+    }
+  },
 
     // Get interview questions using pagination
     getPagination: async (maincatid, subcatid, offset, limit) => {
@@ -107,6 +107,8 @@ const InterviewQuestion = {
         console.error(error.message);
       }
     },
+
+     
 
     search: async (title, res) => {
       try{

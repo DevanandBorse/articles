@@ -12,6 +12,7 @@ app.use(cors());
 
 const dotenv = require("dotenv");
 dotenv.config();
+
 //Importing user routes
 const userRoutes = require("./index/routes/users/userRoutes");
 
