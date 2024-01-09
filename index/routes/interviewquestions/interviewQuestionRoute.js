@@ -61,7 +61,9 @@ const upload1 = multer({
 // When your are uploading data using post method please ensure that the 'image_path' should be 'image' during uploading file and type should be file.
 
 // API's
+// testing post api
 router.post('/interviewQuestions', upload.single('image'), InterviewQuestionController.createInterviewQuestion);
+// aws post api
 router.post('/interviewQuestions', upload1.single('image'), InterviewQuestionController.createInterviewQuestion);
 router.get('/interviewQuestions', InterviewQuestionController.getInterviewQuestions);
 router.get('/interviewQuestions/:id', InterviewQuestionController.getInterviewQuestionById);
