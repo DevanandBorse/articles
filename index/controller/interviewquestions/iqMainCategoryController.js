@@ -9,14 +9,6 @@ const MainCategoryController = {
         res
       );
 
-      if (maincategory.length === 0) {
-        return res.status(404).json({ 
-          response_code: 404,
-          response_message: "Success",
-          data: { message: "maincategory not found" }
-        });
-      }
-
       res.status(200).json({
         response_code: 200,
         response_message: "Success",
